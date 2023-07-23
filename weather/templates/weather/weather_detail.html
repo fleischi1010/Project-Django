@@ -1,0 +1,66 @@
+<!-- the_weather/weather/templates/weather/weather_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+</head>
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Weather Detail Page
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/{{ icon }}.png" alt="Weather Icon">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">{{ city }}</span>
+                                        <br>
+                                        <span class="subtitle">{{ temperature }}° F</span>
+                                        <br> {{ description }}
+                                    </p>
+                                    <p>
+                                        <strong>Humidity:</strong> {{ humidity }}%
+                                        <br>
+                                        <strong>Wind Speed:</strong> {{ wind_speed }} mph
+                                        <br>
+                                        <strong>Visibility:</strong> {{ visibility }} miles
+                                    </p>
+                                    <p>
+                                        <!-- Assuming weather.date provides the date for the forecast -->
+                                        <strong>5-day Forecast:</strong><br>
+                                        <!-- Replace forecast_list with the actual name of the list containing forecast data -->
+                                        {% for forecast in forecast_list %}
+                                            {{ forecast.date }} - {{ forecast.temperature }}° F - {{ forecast.description }}<br>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    </footer>
+</body>
+</html>

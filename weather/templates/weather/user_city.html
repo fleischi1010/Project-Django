@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User's Saved Cities</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+</head>
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    User's Saved Cities
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            {% if user.is_authenticated %}
+                <p>Hello, {{ user.username }}! You are logged in. <a href="{% url 'logout' %}">Logout</a></p>
+            {% else %}
+                <p>Welcome to the Weather App! Please <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a>.</p>
+            {% endif %}
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <h2>Saved Cities</h2>
+                    {% for city in user_saved_cities %}
+                        <div class="box">
+                            <p>{{ city.name }}</p>
+                            <!-- Add other weather data here if needed -->
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    </footer>
+</body>
+</html>

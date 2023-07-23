@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>What's the weather like?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+</head>
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Sag mir wie das Wetter ist, und ich sag dir, was du anziehen musst!
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <!-- Include the login and registration links -->
+            {% if user.is_authenticated %}
+                <p>Hello, {{ user.username }}! You are logged in. <a href="{% url 'logout' %}" class="button is-info">Logout</a></p>
+            {% else %}
+                <p>Welcome to the Weather App! Please <a href="{% url 'login' %}" class="button is-info">Login</a> or <a href="{% url 'register' %}" class="button is-info">Register</a>.</p>
+            {% endif %}
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                {{ form.name }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary">
+                                    Save City
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            {% if weather_data %}
+                <h2 class="subtitle">Weather for Saved City</h2>
+                <div class="columns">
+                    {% for weather in weather_data %}
+                        <div class="column is-4">
+                            <div class="card">
+                                <div class="card-content">
+                                    <p class="title">{{ weather.city }}</p>
+                                    <p class="subtitle">{{ weather.temperature }}° F</p>
+                                    <p>{{ weather.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+    <footer class="footer">
+    </footer>
+</body>
+</html>
